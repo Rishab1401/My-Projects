@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Date Proposal ❤️</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+text-align:center;
+overflow:hidden;
+}
+
+.container{
+background:white;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+max-width:400px;
+}
+
+h1,h2{
+color:#333;
+}
+
+button{
+padding:12px 25px;
+font-size:18px;
+margin:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+transition:0.3s;
+}
+
+#yesBtn{
+background:#ff4d6d;
+color:white;
+}
+
+#noBtn{
+background:#666;
+color:white;
+position:absolute;
+}
+
+.option{
+background:#ff7eb3;
+color:white;
+}
+
+.hidden{
+display:none;
+}
+
+/* floating hearts */
+
+.heart{
+position:absolute;
+color:red;
+font-size:20px;
+animation:float 5s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1}
+100%{transform:translateY(-800px);opacity:0}
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+<h1 id="question">Will you go on a date with me? ❤️</h1>
+
+<div id="mainButtons">
+<button id="yesBtn">Yes 💖</button>
+<button id="noBtn">No 😢</button>
+</div>
+
+<div id="nextStep" class="hidden">
+
+<h2>Yayyy!!! Let's plan a date 🎉</h2>
+
+<p>Where should we go?</p>
+
+<button class="option">Cafe ☕</button>
+<button class="option">Street Food 🌮</button>
+
+</div>
+
+<div id="finalMessage" class="hidden">
+<h2>Done! We will meet soon 😊❤️</h2>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+
+const noBtn = document.getElementById("noBtn")
+const yesBtn = document.getElementById("yesBtn")
+
+const mainButtons = document.getElementById("mainButtons")
+const nextStep = document.getElementById("nextStep")
+
+const options = document.querySelectorAll(".option")
+const finalMessage = document.getElementById("finalMessage")
+
+// move no button
+noBtn.addEventListener("mouseover", () => {
+
+const x = Math.random() * (window.innerWidth - 100)
+const y = Math.random() * (window.innerHeight - 100)
+
+noBtn.style.left = x + "px"
+noBtn.style.top = y + "px"
+
+})
+
+// yes clicked
+yesBtn.addEventListener("click", () => {
+
+mainButtons.classList.add("hidden")
+nextStep.classList.remove("hidden")
+
+confetti({
+particleCount:150,
+spread:90,
+origin:{y:0.6}
+})
+
+})
+
+// option selected
+options.forEach(btn => {
+
+btn.addEventListener("click", () => {
+
+nextStep.classList.add("hidden")
+finalMessage.classList.remove("hidden")
+
+})
+
+})
+
+// floating hearts
+function createHeart(){
+
+const heart=document.createElement("div")
+heart.classList.add("heart")
+heart.innerHTML="❤️"
+
+heart.style.left=Math.random()*100+"vw"
+heart.style.fontSize=(10+Math.random()*20)+"px"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>{
+heart.remove()
+},5000)
+
+}
+
+setInterval(createHeart,500)
+
+</script>
+
+</body>
+</html>
